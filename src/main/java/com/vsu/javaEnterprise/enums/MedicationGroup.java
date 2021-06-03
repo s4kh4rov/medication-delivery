@@ -1,4 +1,4 @@
-package com.vsu.javaEnterprise.domain;
+package com.vsu.javaEnterprise.enums;
 
 public enum MedicationGroup {
     CARDIOVASCULAR,

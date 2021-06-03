@@ -1,0 +1,73 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="01" author="AlexanderSakharov">
+        <createTable tableName="consignment">
+            <column name="id" type="serial" autoIncrement="true">
+                <constraints unique="true" primaryKey="true"/>
+            </column>
+            <column name="manufacture_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="customer">
+            <column name="id" type="serial" autoIncrement="true">
+                <constraints unique="true" primaryKey="true"/>
+            </column>
+            <column name="surname" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="orders_count" type="integer">
+            </column>
+            <column name="discount_card_number" type="varchar(25)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="purchase_frequency" type="integer">
+                <constraints nullable="true"/>
+            </column>
+            <column name="days_before_purchase" type="integer">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="medication">
+            <column name="id" type="serial" autoIncrement="true">
+                <constraints unique="true" primaryKey="true"/>
+            </column>
+            <column name="med_name" type="varchar(255)">
+            </column>
+            <column name="dosage" type="double precision">
+            </column>
+            <column name="med_form" type="varchar(100)">
+            </column>
+            <column name="med_group" type="varchar(100)">
+            </column>
+            <column name="shelf_life" type="integer">
+            </column>
+            <column name="discount_rate" type="double precision">
+            </column>
+            <column name="is_expired" type="boolean">
+            </column>
+            <column name="price" type="numeric">
+            </column>
+        </createTable>
+        <createTable tableName="medication_order">
+            <column name="id" type="serial" autoIncrement="true">
+                <constraints unique="true" primaryKey="true"/>
+            </column>
+            <column name="cust_id" type="serial">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_price" type="numeric">
+            </column>
+            <column name="order_status" type="varchar(100)">
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
