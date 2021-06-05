@@ -3,6 +3,7 @@ package com.vsu.javaEnterprise.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vsu.javaEnterprise.enums.MedicationGroup;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -26,15 +27,17 @@ public class Customer {
     private Integer purchaseFrequency;
     @Column(name = "days_before_purchase")
     private Integer daysBeforePurchase;
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "customer_medication",
             joinColumns = { @JoinColumn(name = "cust_id") },
             inverseJoinColumns = { @JoinColumn(name = "med_id") }
     )
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private Set<Medication> purchasedMedications;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
+    @OneToMany(mappedBy = "customer")
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private Set<MedicationOrder> orders;
 }

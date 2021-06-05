@@ -1,8 +1,11 @@
 package com.vsu.javaEnterprise.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -24,7 +27,8 @@ public class Consignment {
     private Boolean isExpired;
     @Column(name = "discount_rate")
     private Double discountRate;
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "consignment",fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "consignment",fetch = FetchType.LAZY)
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private Medication medication;
 }

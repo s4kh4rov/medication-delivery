@@ -2,6 +2,7 @@ package com.vsu.javaEnterprise.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -16,12 +17,14 @@ public class OrderItem {
     private Long id;
     @Column(name = "amount")
     private Integer amount;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private MedicationOrder order;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "med_id")
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private Medication medication;
 }

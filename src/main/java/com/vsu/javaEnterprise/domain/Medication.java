@@ -1,10 +1,13 @@
 package com.vsu.javaEnterprise.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.vsu.javaEnterprise.enums.MedicationForm;
 import com.vsu.javaEnterprise.enums.MedicationGroup;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -33,14 +36,17 @@ public class Medication {
     @Column(name = "price")
     private Double price;
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "cons_id",referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cons_id", referencedColumnName = "id")
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private Consignment consignment;
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "purchasedMedications", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "purchasedMedications", fetch = FetchType.LAZY)
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private Set<Customer> regularCustomers;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "medication",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "medication", fetch = FetchType.LAZY)
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private Set<OrderItem> items;
 }

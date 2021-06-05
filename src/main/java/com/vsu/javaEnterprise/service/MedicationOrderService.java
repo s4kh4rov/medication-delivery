@@ -22,10 +22,15 @@ public class MedicationOrderService {
     }
 
     public Long saveOrder(MedicationOrderDto orderDto) {
-        MedicationOrder order = medicationOrderRepository.save(orderMapper.toMedicationOrder(orderDto));
+        Double orderPrice = 0.0;
+        MedicationOrder order = orderMapper.toMedicationOrder(orderDto);
         order.setOrderStatus(OrderStatus.CREATED);
         for (OrderItem item : order.getItems()) {
+            item.setOrder(order);
+            orderPrice+=item.getMedication().getPrice()*item.getMedication().getConsignment().getDiscountRate()*item.getAmount();
         }
-        return null;
+        order.setOrderPrice(orderPrice);
+        return medicationOrderRepository.save(order).getId();
+
     }
 }
